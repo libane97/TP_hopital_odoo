@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <data>
+        <!-- declaration du rapport -->
+        <report
+            id="print_tp_hopital_id"
+            model="tp.hopital.medecin"
+            string="Impression des Patients"
+            name="tp_hopital.rapport_patient"
+            file="tp_hopital.rapport_patient"
+            report_type="qweb-pdf"
+            attachment_use="True"
+        />
+        <!-- Report template -->
+        <template id="rapport_patient">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="i">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <p style="text-aling: center">Les informations associées au Medecin </p>
+                            <table>
+                                <tr>
+                                    <th>Nom et Prénoms :</th>
+                                    <th> <span style="margin-left: 40px;"> Matricule : </span></th>
+                                    <th> <span style="margin-left: 40px;">Grade : </span>
+                                    </th>
+                                    <th><span style="margin-left: 40px;"> Spécialité : </span></th>
+                                </tr>
+                                <tr>
+                                    <td> <span t-field="i.name" /> </td>
+                                    <td> <span style="margin-left: 40px;" t-field="i.matricule" /></td>
+                                    <td><span style="margin-left: 40px;" t-field="i.grade_id" /></td>
+                                    <td><span style="margin-left: 40px;" t-field="i.specialite_id" /></td>
+                                </tr>
+                            </table>
+                                                        <br/>
+                            <br/>
+                            <h4>Liste des Patients suivis par le  Medecins : <span  t-field="i.name"/> </h4>
+                            <br/>
+                            <table class="table table-bordered" style="border: 2px solid black;" width="100%">
+                                <tr style="border: 2px solid black;">
+                                    <th style="border: 2px solid black;" width="40%">Nom et Prénoms</th>
+                                    <th style="border: 2px solid black;" width="20%">N° Dossier</th>
+                                    <th style="border: 2px solid black;" width="20%">SEXE :
+                                     </th>
+                                    <th style="border: 2px solid black;" width="20%">Date Inscription :
+                                     </th>
+                                </tr>
+                                <t t-foreach="i.patient_ids" t-as="f">
+                                <tr style="border: 2px solid black;">
+                                    <td style="border: 2px solid black;" width="40%"> <span t-field="f.name"/> </td>
+                                    <td style="border: 2px solid black;" width="20%"><span t-field="f.num_dossier"/></td>
+                                    <td style="border: 2px solid black;" width="20%"><span t-field="f.sexe"/></td>
+                                    <td style="border: 2px solid black;" width="20%"><span t-field="f.date_inscription"/></td>
+                                </tr>
+                              </t>
+                            </table>
+
+                          
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
